@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Note List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            background-image: url('/images/basic.jpg');
+            background-size: cover;
+            background-position: center;
+            color: black;
+        }
+
+        .table td {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1 class="font-weight-bold">Notes</h1>
+<table class="table">
+    <tr>
+        <th class="font-weight-bold">Title</th>
+        <th class="font-weight-bold">Content</th>
+        <th class="font-weight-bold">Actions</th>
+    </tr>
+    <tr th:each="note : ${notes}">
+        <td th:text="${note.title}">Title</td>
+        <td th:text="${note.content}">Content</td>
+        <td>
+            <a th:href="@{/note/edit(id=${note.id})}" class="btn btn-primary">Edit</a>
+            <form th:action="@{/note/delete}" method="post" style="display: inline;">
+                <input type="hidden" th:value="${note.id}" name="id"/>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/note/add}" class="btn btn-success">ADD NOTE</a>
+</body>
+</html>
+
